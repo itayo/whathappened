@@ -1,6 +1,6 @@
 [![GitHub license](https://img.shields.io/github/license/Rollcloud/whathappened)](https://github.com/Rollcloud/whathappened/blob/main/LICENSE)
-![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/Rollcloud/whathappened)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Rollcloud/whathappened/test-build?logo=github)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/whathappened?logo=pypi)
 ![semver](https://img.shields.io/badge/semver-2.0.0-blue)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/rollcloud/whathappened?sort=semver)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
