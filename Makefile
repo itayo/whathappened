@@ -1,5 +1,6 @@
 # Usage:
 # make clean  # remove ALL binaries and objects
+# make changelog
 # make check
 # make cov
 # make lint
@@ -33,6 +34,10 @@ clean-pyc: ## remove Python file artifacts
 clean-test: ## remove test and coverage artifacts
 	rm -fr .coverage
 	rm -fr .pytest_cache
+
+.PHONY: changelog
+changelog:
+	$(VENV) python3 example.py
 
 .PHONY: check
 check:
