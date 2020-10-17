@@ -10,6 +10,7 @@ pytest-reportlog = "*"
 pytest-watch = "*"
 versioneer = "*"
 black = "*"
+flake8 = "*"
 
 [packages]
 
