@@ -38,9 +38,9 @@ def get_commits():
                 except ValueError:
                     pass
         else:
-            current_commit.setdefault(
-                'message', []
-            ).append(leading_4_spaces.sub('', line))
+            current_commit.setdefault('message', []).append(
+                leading_4_spaces.sub('', line)
+            )
     if current_commit:
         save_current_commit()
     return commits
