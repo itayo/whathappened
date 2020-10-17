@@ -92,19 +92,16 @@ def compile_log(commits):
 
 
 def format_log(versions):
-    output = "# Changelog\n\n"
+    output = "# Changelog\n"
 
     for version in versions:
-        output += f"\n## {version.ref} ({version.date.isoformat()[:10]})\n\n"
+        output += f"\n\n## {version.ref} ({version.date.isoformat()[:10]})\n\n"
 
         for commit in version.commits:
             scope = f"{commit.scope} - " if commit.scope else ''
             desc = commit.description
             desc = desc if len(scope) == 0 else desc
             output += f"* {scope}{desc}\n"
-
-        # add following newline
-        output += "\n"
 
     return output
 

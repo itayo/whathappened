@@ -71,7 +71,6 @@ from whathappened import changelog as cl
 ## v0.0.0 (2020-10-17)
 
 * Initial commit
-
 """,
         )
     ],
