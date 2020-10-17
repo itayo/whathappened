@@ -13,6 +13,23 @@ A changelog generator using simply structured git commit messages
 * [Auto Changelog](https://github.com/Michael-F-Bryan/auto-changelog)
 * [git_commits.py](https://gist.github.com/simonw/091b765a071d1558464371042db3b959#file-get_commits-py)
 
+## Install and Run
+
+Installation is as simple as it gets:
+
+    pip install whathappened
+
+~~To generate a changelog, run:~~
+
+    $ whathappened
+
+Make sure to activate any virtual envrionment that you might be using first.
+
+## Package Changelog
+
+Created by Whathappened itself - very meta.
+
+For the complete changelog, please see [CHANGELOG.md](CHANGELOG.md).
 
 ## Whathappened Commit Message Format
 
