@@ -1,3 +1,5 @@
+# https://gist.github.com/simonw/091b765a071d1558464371042db3b959#file-get_commits-py
+
 import subprocess
 import re
 
