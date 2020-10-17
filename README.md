@@ -19,7 +19,7 @@ A changelog generator using simply structured git commit messages
 
 Installation is as simple as it gets:
 
-    pip install whathappened
+    $ pip install whathappened
 
 ~~To generate a changelog, run:~~
 
