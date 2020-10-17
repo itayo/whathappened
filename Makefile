@@ -2,6 +2,7 @@
 # make clean  # remove ALL binaries and objects
 # make check
 # make cov
+# make lint
 # make watch-check
 
 
@@ -47,6 +48,13 @@ watch-check:
 		--onpass "notify-send -i emblem-default Pytest \"All Tests Pass!\"" \
 		--onfail "python3 tests/misc/pytest-summary.py .pytest_cache/pytest.json \
 		| xargs -r -i notify-send -i error Pytest \"{}\""
+
+.PHONY: lint
+lint:
+	## stop the build if there are Python syntax errors or undefined names
+	$(VENV) flake8 . --extend-exclude=.venv/,.github/ --count --select=E9,F63,F7,F82 --show-source --statistics
+	## exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+	$(VENV) flake8 . --extend-exclude=.venv/,.github/,build/,dist/,version/,versioneer.py --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
 .PHONY: install
 install:
