@@ -6,3 +6,10 @@
 
 # whathappened
 A changelog generator using simply structured git commit messages
+
+## Inspired by
+
+* [SemVer](https://semver.org/)
+* [Angular Commit Message Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit)
+* [Auto Changelog](https://github.com/Michael-F-Bryan/auto-changelog)
+* [git_commits.py](https://gist.github.com/simonw/091b765a071d1558464371042db3b959#file-get_commits-py)
