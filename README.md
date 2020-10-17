@@ -13,3 +13,29 @@ A changelog generator using simply structured git commit messages
 * [Angular Commit Message Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit)
 * [Auto Changelog](https://github.com/Michael-F-Bryan/auto-changelog)
 * [git_commits.py](https://gist.github.com/simonw/091b765a071d1558464371042db3b959#file-get_commits-py)
+
+
+## Whathappened Commit Message Format
+
+Whathappened expects git commit messages in the format outlined below:
+
+    [optional breaking ]<type>[ optional (<scope>)]: <description>
+
+    [optional body]
+
+`<type>` is recommended to be one of:
+
+    fix
+    feat
+    build
+    chore
+    ci
+    docs
+    style
+    refactor
+    perf
+    test
+
+`<scope>` is recommended to be a module, file, or folder name as appropiate.
+
+This is a simpler version of https://www.conventionalcommits.org/
