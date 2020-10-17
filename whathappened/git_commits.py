@@ -7,9 +7,11 @@ leading_4_spaces = re.compile('^    ')
 
 
 def get_commits():
-    lines = subprocess.check_output(
-        ['git', 'log'], stderr=subprocess.STDOUT
-    ).split('\n')
+    lines = (
+        subprocess.check_output(['git', 'log'], stderr=subprocess.STDOUT)
+        .decode("utf-8")
+        .split('\n')
+    )
     commits = []
     current_commit = {}
 
