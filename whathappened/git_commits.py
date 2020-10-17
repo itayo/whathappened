@@ -8,7 +8,7 @@ leading_4_spaces = re.compile('^    ')
 
 def get_commits():
     lines = (
-        subprocess.check_output(['git', 'log'], stderr=subprocess.STDOUT)
+        subprocess.check_output(['git', 'log', '--decorate'], stderr=subprocess.STDOUT)
         .decode("utf-8")
         .split('\n')
     )
@@ -30,7 +30,18 @@ def get_commits():
                 if current_commit:
                     save_current_commit()
                     current_commit = {}
-                current_commit['hash'] = line.split('commit ')[1]
+                sections = line.split(' ', 2)
+                current_commit['hash'] = sections[1]
+                current_commit['tags'] = []
+                try:
+                    references = sections[2][1:-1]  # drop brackets
+                    references = references.split(', ')
+
+                    for ref in references:
+                        if ref.startswith('tag'):
+                            current_commit['tags'].append(ref.split(' ')[1])
+                except IndexError:  # if commit has no references
+                    pass
             else:
                 try:
                     key, value = line.split(':', 1)

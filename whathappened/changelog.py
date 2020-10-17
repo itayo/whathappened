@@ -1,3 +1,23 @@
+from datetime import datetime
+
+
+class Version:
+    def __init__(self, ref, date):
+        self.ref = ref
+        self.date = (
+            datetime.strptime(date, "%a %b %d %H:%M:%S %Y %z")
+            if isinstance(date, str)
+            else date
+        )  # str input format Wed Apr 22 18:58:54 2020 +0200
+
+        self.commits = []
+
+    def __repr__(self):
+        return (
+            f"Version({self.ref}," f" {self.date}," f" num_commits={len(self.commits)})"
+        )
+
+
 class Commit:
     def __init__(self, commit_dict):
         self.commit_dict = commit_dict
@@ -30,16 +50,15 @@ def filter_commits(commits, start=None, end=None):
     start must occur before end
     start and end can be a tag, or hash
     """
-
     if start is not None:
         for idx, c in enumerate(commits):
-            if c['hash'].startswith(start):
+            if start in c['tags'] or c['hash'].startswith(start):
                 commits = commits[:idx]
                 break
 
     if end is not None:
         for idx, c in enumerate(commits):
-            if c['hash'].startswith(end):
+            if end in c['tags'] or c['hash'].startswith(end):
                 commits = commits[idx:]
                 break
 
@@ -57,13 +76,14 @@ def compile_log(commits):
     # group by version
     for commit in commits:
         # make a new version if required
-        if len(versions) == 0:
-            versions.append([])
+        if len(commit['tags']) > 0 or len(versions) == 0:
+            tag = commit['tags'][0] if len(commit['tags']) > 0 else 'HEAD'
+            versions.append(Version(ref=tag, date=commit['date'],))
 
         this_commit = Commit(commit)
 
         # append to current version
-        versions[-1].append(this_commit)
+        versions[-1].commits.append(this_commit)
 
     # for version in versions:
     #     print(version)
@@ -75,7 +95,9 @@ def format_log(versions):
     output = "# Changelog\n\n"
 
     for version in versions:
-        for commit in version:
+        output += f"\n## {version.ref} ({version.date.isoformat()[:10]})\n\n"
+
+        for commit in version.commits:
             scope = f"{commit.scope} - " if commit.scope else ''
             desc = commit.description
             desc = desc if len(scope) == 0 else desc

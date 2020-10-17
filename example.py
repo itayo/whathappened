@@ -3,7 +3,7 @@ from whathappened.git_commits import get_commits
 
 
 def main():
-    start = 'v0.0.0'
+    start = None
     end = None
     commits = get_commits()
     commits = cl.filter_commits(commits, start, end)
