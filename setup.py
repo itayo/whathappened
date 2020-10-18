@@ -33,6 +33,7 @@ setuptools.setup(
     ],
     cmdclass=versioneer.get_cmdclass(),
     description="A changelog generator using simply structured git commit messages.",
+    entry_points={'console_scripts': ['whathappened=whathappened.command_line:main']},
     install_requires=requirements,
     long_description=long_description,
     long_description_content_type="text/markdown",

@@ -21,7 +21,7 @@ Installation is as simple as it gets:
 
     $ pip install whathappened
 
-~~To generate a changelog, run:~~
+To generate a changelog, run:
 
     $ whathappened
 
