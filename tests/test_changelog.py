@@ -7,13 +7,24 @@ from whathappened import changelog as cl
     "test_input, expected",
     [
         (
-            "Break feat(readme): specify expected message format",
+            "Break feat(read me): specify expected message format",
             {
                 'description': 'specify expected message format',
                 'type': 'feat',
-                'scope': 'readme',
+                'scope': 'read me',
                 'is_breaking': True,
                 'is_feature': True,
+                'is_fix': False,
+            },
+        ),
+        (
+            "docs(README.md): specify expected message format",
+            {
+                'description': 'specify expected message format',
+                'type': 'docs',
+                'scope': 'README.md',
+                'is_breaking': False,
+                'is_feature': False,
                 'is_fix': False,
             },
         ),
