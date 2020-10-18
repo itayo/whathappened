@@ -46,7 +46,6 @@ Whathappened expects git commit messages in the format outlined below:
     fix
     feat
     build
-    chore
     ci
     docs
     style
@@ -55,6 +54,8 @@ Whathappened expects git commit messages in the format outlined below:
     test
 
 `<scope>` is recommended to be a module, file, or folder name as appropiate.
+
+For a nice summary of `type`s and what they mean, please see [Understanding Semantic Commit Messages Using Git and Angular](https://nitayneeman.com/posts/understanding-semantic-commit-messages-using-git-and-angular/).
 
 ### Examples
 
@@ -85,6 +86,4 @@ Multiple lines:
 
     I want more
 
-For more examples, please see whathappened's [commits](https://github.com/Rollcloud/whathappened/commits/).
-
-This is a simpler version of https://www.conventionalcommits.org/
+For more examples, please see whathappened's own [commits](https://github.com/Rollcloud/whathappened/commits/).
