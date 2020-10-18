@@ -7,6 +7,100 @@ from whathappened import changelog as cl
     "test_input, expected",
     [
         (
+            "Break feat(readme): specify expected message format",
+            {
+                'description': 'specify expected message format',
+                'type': 'feat',
+                'scope': 'readme',
+                'is_breaking': True,
+                'is_feature': True,
+                'is_fix': False,
+            },
+        ),
+        (
+            "BREAKING fix (code): repair things",
+            {
+                'description': 'repair things',
+                'type': 'fix',
+                'scope': 'code',
+                'is_breaking': True,
+                'is_feature': False,
+                'is_fix': True,
+            },
+        ),
+        (
+            "breaking fix: repair things",
+            {
+                'description': 'repair things',
+                'type': 'fix',
+                'scope': None,
+                'is_breaking': True,
+                'is_feature': False,
+                'is_fix': True,
+            },
+        ),
+        (
+            "fix: add inspiration",
+            {
+                'description': 'add inspiration',
+                'type': 'fix',
+                'scope': None,
+                'is_breaking': False,
+                'is_feature': False,
+                'is_fix': True,
+            },
+        ),
+        (
+            "docs (readme): add badges",
+            {
+                'description': 'add badges',
+                'type': 'docs',
+                'scope': 'readme',
+                'is_breaking': False,
+                'is_feature': False,
+                'is_fix': False,
+            },
+        ),
+        (
+            "build(actions): create python-app.yml for github action's",
+            {
+                'description': 'create python-app.yml for github action\'s',
+                'type': 'build',
+                'scope': 'actions',
+                'is_breaking': False,
+                'is_feature': False,
+                'is_fix': False,
+            },
+        ),
+        (
+            "Initial commit",
+            {
+                'description': 'Initial commit',
+                'type': 'other',
+                'scope': None,
+                'is_breaking': False,
+                'is_feature': False,
+                'is_fix': False,
+            },
+        ),
+    ],
+)
+def test_commit_title_parsing(test_input, expected):
+    commit = cl.Commit({'hash': '00000', 'title': test_input})
+
+    commit_attr = {}
+    for attr in expected.keys():
+        commit_attr[attr] = getattr(commit, attr)
+
+    print(commit_attr)
+
+    assert commit_attr == expected
+
+
+@pytest.mark.parametrize(
+    "test_input, expected",
+    [
+        (
             [
                 {
                     'hash': 'e324c324df48a76113ad9b3c0887f161324046e4',
@@ -14,7 +108,7 @@ from whathappened import changelog as cl
                     'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
                     'date': 'Sat Oct 17 17:30:25 2020 +0200',
                     'message': '',
-                    'title': 'feat (readme): specify expected message format',
+                    'title': 'breaking feat(readme): specify expected message format',
                 },
                 {
                     'hash': '7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9',
@@ -22,7 +116,23 @@ from whathappened import changelog as cl
                     'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
                     'date': 'Sat Oct 17 15:00:48 2020 +0200',
                     'message': '',
-                    'title': 'fix (readme): add inspiration',
+                    'title': 'breaking fix (code): repair things',
+                },
+                {
+                    'hash': '7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9',
+                    'tags': [],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 15:00:48 2020 +0200',
+                    'message': '',
+                    'title': 'breaking fix: repair things',
+                },
+                {
+                    'hash': '7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9',
+                    'tags': [],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 15:00:48 2020 +0200',
+                    'message': '',
+                    'title': 'fix: add inspiration',
                 },
                 {
                     'hash': 'f60445bba0ac48e12ce6be5526644037234ae500',
@@ -59,11 +169,13 @@ from whathappened import changelog as cl
 
 ### Features
 
-* Readme - specify expected message format
+* Readme - specify expected message format [BREAKING]
 
 ### Fixes
 
-* Readme - add inspiration
+* Add inspiration
+* Repair things [BREAKING]
+* Code - repair things [BREAKING]
 
 
 ## v0.0.1 (2020-10-17)
@@ -74,6 +186,10 @@ from whathappened import changelog as cl
 
 
 ## v0.0.0 (2020-10-17)
+
+### Other
+
+* Initial commit
 """,
         )
     ],

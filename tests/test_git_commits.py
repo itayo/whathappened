@@ -23,7 +23,7 @@ def test_get_commits(monkeypatch):
             'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
             'date': 'Sat Oct 17 17:30:25 2020 +0200',
             'message': '',
-            'title': 'feat (readme): specify expected message format',
+            'title': 'breaking feat(readme): specify expected message format',
         },
         {
             'hash': '7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9',
@@ -31,7 +31,23 @@ def test_get_commits(monkeypatch):
             'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
             'date': 'Sat Oct 17 15:00:48 2020 +0200',
             'message': '',
-            'title': 'fix (readme): add inspiration',
+            'title': 'breaking fix (code): repair things',
+        },
+        {
+            'hash': '7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9',
+            'tags': [],
+            'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+            'date': 'Sat Oct 17 15:00:48 2020 +0200',
+            'message': '',
+            'title': 'breaking fix: repair things',
+        },
+        {
+            'hash': '7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9',
+            'tags': [],
+            'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+            'date': 'Sat Oct 17 15:00:48 2020 +0200',
+            'message': '',
+            'title': 'fix: add inspiration',
         },
         {
             'hash': 'f60445bba0ac48e12ce6be5526644037234ae500',

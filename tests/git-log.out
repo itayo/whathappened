@@ -2,13 +2,25 @@ commit e324c324df48a76113ad9b3c0887f161324046e4 (HEAD -> develop, tag: v0.1.1, o
 Author: Rollcloud <Rollcloud@users.noreply.github.com>
 Date:   Sat Oct 17 17:30:25 2020 +0200
 
-    feat (readme): specify expected message format
+    breaking feat(readme): specify expected message format
 
 commit 7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9
 Author: Rollcloud <Rollcloud@users.noreply.github.com>
 Date:   Sat Oct 17 15:00:48 2020 +0200
 
-    fix (readme): add inspiration
+    breaking fix (code): repair things
+
+commit 7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9
+Author: Rollcloud <Rollcloud@users.noreply.github.com>
+Date:   Sat Oct 17 15:00:48 2020 +0200
+
+    breaking fix: repair things
+
+commit 7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9
+Author: Rollcloud <Rollcloud@users.noreply.github.com>
+Date:   Sat Oct 17 15:00:48 2020 +0200
+
+    fix: add inspiration
 
 commit f60445bba0ac48e12ce6be5526644037234ae500 (tag: v0.0.1)
 Author: Rollcloud <Rollcloud@users.noreply.github.com>

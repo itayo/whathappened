@@ -1,3 +1,5 @@
+import re
+
 from datetime import datetime
 from itertools import groupby
 
@@ -20,6 +22,14 @@ class Version:
 
 
 class Commit:
+
+    commit_regex = re.compile(
+        r"(?:(?P<breaking>break(ing)?)? ?(?P<type>\w+){1}"
+        r" ?\(?(?P<scope>\w+)?\)?: (?P<description>.+)|"
+        r"(?P<description_alt>.+))",
+        flags=re.IGNORECASE,
+    )
+
     def __init__(self, commit_dict):
         self.commit_dict = commit_dict
 
@@ -28,21 +38,33 @@ class Commit:
         try:
             return self.commit_dict[name]
         except KeyError:
-            if name == 'header':
-                return self.title.split(': ', 1)[0]
-            elif name == 'description':
-                return (
-                    self.title.split(': ', 1)[1] if ': ' in self.title else self.title
-                )
+
+            result = Commit.commit_regex.match(self.title)
+            breaking, commit_type, scope, description, description_alt = (
+                result.group('breaking'),
+                result.group('type'),
+                result.group('scope'),
+                result.group('description'),
+                result.group('description_alt'),
+            )
+
+            if name == 'description':
+                return description if description is not None else description_alt
+            elif name == 'is_breaking':
+                return breaking is not None
             elif name == 'type':
-                return self.header.lower().split(' ', 1)[0]
+                return commit_type if commit_type is not None else 'other'
             elif name == 'scope':
-                return self.header.split('(')[1][:-1] if '(' in self.header else None
+                return scope
+            elif name == 'is_feature':
+                return "feat" in self.type.lower()
+            elif name == 'is_fix':
+                return "fix" in self.type.lower()
             else:
                 raise AttributeError(f"Attribute '{name}' not found in class Commit")
 
     def __repr__(self):
-        return f"{self.hash[:8]} {self.title})"
+        return f"Commit({{'hash': '{self.hash[:6]}', 'title': '{self.title}')}}"
 
 
 def sentence(string):
@@ -109,6 +131,7 @@ def format_log(versions):
         'fix': "Fixes",
         'perf': "Performance",
         'refactor': "Refactorings",
+        'other': "Other",
     }
 
     for version in versions:
@@ -124,7 +147,8 @@ def format_log(versions):
                     scope = f"{commit.scope} - " if commit.scope else ''
                     desc = commit.description
                     desc = sentence(desc) if len(scope) == 0 else desc
-                    output += f"* {sentence(scope)}{desc}\n"
+                    breaking = " [BREAKING]" if commit.is_breaking else ''
+                    output += f"* {sentence(scope)}{desc}{breaking}\n"
 
     return output
 
