@@ -59,18 +59,18 @@ from whathappened import changelog as cl
 
 ### Features
 
-* readme - specify expected message format
+* Readme - specify expected message format
 
 ### Fixes
 
-* readme - add inspiration
+* Readme - add inspiration
 
 
 ## v0.0.1 (2020-10-17)
 
 ### Docs
 
-* readme - add badges
+* Readme - add badges
 
 
 ## v0.0.0 (2020-10-17)

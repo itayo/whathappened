@@ -45,6 +45,14 @@ class Commit:
         return f"{self.hash[:8]} {self.title})"
 
 
+def sentence(string):
+    try:
+        return string[0].upper() + string[1:]
+    except IndexError:
+        # zero-length string
+        return string
+
+
 def filter_commits(commits, start=None, end=None):
     """
     Returns commits from start (exclusive) to end (inclusive).
@@ -115,7 +123,8 @@ def format_log(versions):
                 for commit in sorted(group, key=lambda x: f"{x.scope} {x.description}"):
                     scope = f"{commit.scope} - " if commit.scope else ''
                     desc = commit.description
-                    output += f"* {scope}{desc}\n"
+                    desc = sentence(desc) if len(scope) == 0 else desc
+                    output += f"* {sentence(scope)}{desc}\n"
 
     return output
 
