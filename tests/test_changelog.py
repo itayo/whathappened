@@ -55,20 +55,31 @@ from whathappened import changelog as cl
             ],
             """# Changelog
 
-
 ## v0.1.1 (2020-10-17)
 
+### feat
+
 * readme - specify expected message format
+
+### fix
+
 * readme - add inspiration
 
 
 ## v0.0.1 (2020-10-17)
 
-* readme - add badges
+### build(actions)
+
 * actions - create python-app.yml for github actions
+
+### docs
+
+* readme - add badges
 
 
 ## v0.0.0 (2020-10-17)
+
+### initial
 
 * Initial commit
 """,

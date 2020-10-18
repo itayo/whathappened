@@ -1,4 +1,5 @@
 from datetime import datetime
+from itertools import groupby
 
 
 class Version:
@@ -34,7 +35,7 @@ class Commit:
                     self.title.split(': ', 1)[1] if ': ' in self.title else self.title
                 )
             elif name == 'type':
-                return self.header.lower().split(' ', 1)[1 if self.is_breaking else 0]
+                return self.header.lower().split(' ', 1)[0]
             elif name == 'scope':
                 return self.header.split('(')[1][:-1] if '(' in self.header else None
             else:
@@ -92,16 +93,20 @@ def compile_log(commits):
 
 
 def format_log(versions):
-    output = "# Changelog\n"
+    output = "# Changelog"
 
     for version in versions:
-        output += f"\n\n## {version.ref} ({version.date.isoformat()[:10]})\n\n"
+        output += f"\n\n## {version.ref} ({version.date.isoformat()[:10]})\n"
 
-        for commit in version.commits:
-            scope = f"{commit.scope} - " if commit.scope else ''
-            desc = commit.description
-            desc = desc if len(scope) == 0 else desc
-            output += f"* {scope}{desc}\n"
+        for key, group in groupby(
+            sorted(version.commits, key=lambda x: x.type), lambda x: x.type
+        ):
+            output += f"\n### {key}\n\n"
+
+            for commit in sorted(group, key=lambda x: f"{x.scope} {x.description}"):
+                scope = f"{commit.scope} - " if commit.scope else ''
+                desc = commit.description
+                output += f"* {scope}{desc}\n"
 
     return output
 
