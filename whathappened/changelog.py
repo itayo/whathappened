@@ -95,18 +95,27 @@ def compile_log(commits):
 def format_log(versions):
     output = "# Changelog"
 
+    headings = {
+        'docs': "Docs",
+        'feat': "Features",
+        'fix': "Fixes",
+        'perf': "Performance",
+        'refactor': "Refactorings",
+    }
+
     for version in versions:
         output += f"\n\n## {version.ref} ({version.date.isoformat()[:10]})\n"
 
         for key, group in groupby(
             sorted(version.commits, key=lambda x: x.type), lambda x: x.type
         ):
-            output += f"\n### {key}\n\n"
+            if key in headings:
+                output += f"\n### {headings[key]}\n\n"
 
-            for commit in sorted(group, key=lambda x: f"{x.scope} {x.description}"):
-                scope = f"{commit.scope} - " if commit.scope else ''
-                desc = commit.description
-                output += f"* {scope}{desc}\n"
+                for commit in sorted(group, key=lambda x: f"{x.scope} {x.description}"):
+                    scope = f"{commit.scope} - " if commit.scope else ''
+                    desc = commit.description
+                    output += f"* {scope}{desc}\n"
 
     return output
 

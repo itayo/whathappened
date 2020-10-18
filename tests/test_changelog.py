@@ -57,31 +57,23 @@ from whathappened import changelog as cl
 
 ## v0.1.1 (2020-10-17)
 
-### feat
+### Features
 
 * readme - specify expected message format
 
-### fix
+### Fixes
 
 * readme - add inspiration
 
 
 ## v0.0.1 (2020-10-17)
 
-### build(actions)
-
-* actions - create python-app.yml for github actions
-
-### docs
+### Docs
 
 * readme - add badges
 
 
 ## v0.0.0 (2020-10-17)
-
-### initial
-
-* Initial commit
 """,
         )
     ],
