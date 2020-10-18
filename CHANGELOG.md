@@ -1,31 +1,59 @@
 # Changelog
 
-* workflow - run build-test on develop branch
-* confirm works on Python 3.6-3.9 and update badge
-* makefile - add changelog command
-* readme - add Python version badge
-* workflow - upload unit test results as artifact
-* changelog - replace get_commits() with commit dictionary list
-* git_commits - mock calls to 'git log'
-* workflow - rename Python application -> test-build
-* workflow - replace flake8 action with make lint
-* workflow - repair app lint and test action
-* install flake8
-* readme - add installation, execution, and changelog instructions
-* readme - move broken 'commits since' badge
-* add missing versioneer.py
-* changelog - add initial CHANGELOG.md
-* create example.py
-* add changelog generation script
-* add test_git_commits.py
-* git_commits - blacken
-* setup development environment
-* git_commits - convert to Python3
-* git_commits - add credit to original source
-* add git_commits.py from existing Gist
-* readme - specify expected message format
-* readme - add inspiration
-* readme - add badges
-* actions - create python-app.yml for github actions
+## v0.2.0 (2020-10-18)
+
+### Docs
+
+* Changelog - update for v0.2.0
+* Readme - add command-line indicator to installation instructions
+* Readme - add commit message examples
+* Readme - add more details about message types
+* Readme - link badges to sensible destinations
+
+### Features
+
+* Add command line script
+* Detect and handle breaking changes
+* Group commits by version [BREAKING]
+* Group commits in each version by type
+
+### Fixes
+
+* Add appropriate capitalisation to changelog items
+* Only display user-relevant commits types in the changelog
+* Remove extra line at end of changelog
+
+
+## v0.1.1 (2020-10-18)
+
+### Docs
+
+* Changelog - update for v0.1.1
+* Readme - add Python version badge
+* Readme - add installation, execution, and changelog instructions
+* Readme - move broken 'commits since' badge
+
+
+## v0.1.0 (2020-10-17)
+
+### Docs
+
+* Changelog - add initial CHANGELOG.md
+* Git_commits - add credit to original source
+* Readme - add badges
+* Readme - add inspiration
+* Readme - specify expected message format
+
+### Features
+
+* Add changelog generation script
+* Add git_commits.py from existing Gist
+* Create example.py
+
+### Other
+
 * Initial commit
 
+### Refactorings
+
+* Git_commits - convert to Python3
