@@ -56,4 +56,35 @@ Whathappened expects git commit messages in the format outlined below:
 
 `<scope>` is recommended to be a module, file, or folder name as appropiate.
 
+### Examples
+
+All of the examples below are acceptable commit message formats:
+
+The simplest message:
+
+    style: isn't it neat
+
+Defining scope:
+
+    docs(gadgets): remember the gizmos
+
+Signalling a breaking change
+
+    breaking feat: add the whozits
+
+Defining scope, including a space:
+
+    fix (whatsits): repair the thingamabobs
+
+Multiple lines:
+
+    test: How many have I got?
+
+    I've got twenty
+    But who cares?
+
+    I want more
+
+For more examples, please see whathappened's [commits](https://github.com/Rollcloud/whathappened/commits/).
+
 This is a simpler version of https://www.conventionalcommits.org/
