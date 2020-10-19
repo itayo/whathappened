@@ -24,8 +24,8 @@ class Version:
 class Commit:
 
     commit_regex = re.compile(
-        r"(?:(?P<breaking>break(ing)?)? ?(?P<type>\w+){1}"
-        r" ?\(?(?P<scope>[^\(\):]+)?\)?: (?P<description>.+)|"
+        r"(?:(?P<breaking>break(?:ing)?)? ?(?P<type>\w+){1}"
+        r" ?(?:\((?P<scope>[^\(\):]+)\))?: (?P<description>.+)|"
         r"(?P<description_alt>.+))",
         flags=re.IGNORECASE,
     )

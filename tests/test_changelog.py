@@ -84,6 +84,17 @@ from whathappened import changelog as cl
             },
         ),
         (
+            "README.md: correct typo",
+            {
+                'description': 'README.md: correct typo',
+                'type': 'other',
+                'scope': None,
+                'is_breaking': False,
+                'is_feature': False,
+                'is_fix': False,
+            },
+        ),
+        (
             "Initial commit",
             {
                 'description': 'Initial commit',
