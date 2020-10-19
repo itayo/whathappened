@@ -6,7 +6,7 @@ def get_version(package):
     return next(
         (
             p.version
-            for p in pkg_resources.working_set
+            for p in pkg_resources.working_set  # noqa: F821
             if p.project_name.lower() == package
         ),
         "No match",
