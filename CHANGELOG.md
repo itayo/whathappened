@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.3.1 (2020-10-19)
+
+### Docs
+
+* Changelog - updated to v0.3.1
+
+### Fixes
+
+* Ci - ignore erroneous F821 error when fetching package version
+
+
 ## v0.3.0 (2020-10-19)
 
 ### Docs
