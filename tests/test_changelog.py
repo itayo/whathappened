@@ -206,10 +206,7 @@ def test_commit_title_parsing(test_input, expected):
     ],
 )
 def test_changelog(test_input, expected):
-    start = None
-    end = None
     commits = test_input
-    commits = cl.filter_commits(commits, start, end)
     versions = cl.compile_log(commits)
     log = cl.format_log(versions)
 

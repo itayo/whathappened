@@ -13,7 +13,7 @@ if versioneer.get_versions()["dirty"]:
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-requirements = []
+requirements = ['click']
 
 test_requirements = ['pytest', 'pytest-cov', 'pytest-watch', 'pytest-reportlog']
 
@@ -33,7 +33,7 @@ setuptools.setup(
     ],
     cmdclass=versioneer.get_cmdclass(),
     description="A changelog generator using simply structured git commit messages.",
-    entry_points={'console_scripts': ['whathappened=whathappened.command_line:main']},
+    entry_points={'console_scripts': ['whathappened=whathappened.command_line:cli']},
     install_requires=requirements,
     long_description=long_description,
     long_description_content_type="text/markdown",

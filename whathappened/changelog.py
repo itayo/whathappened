@@ -75,27 +75,6 @@ def sentence(string):
         return string
 
 
-def filter_commits(commits, start=None, end=None):
-    """
-    Returns commits from start (exclusive) to end (inclusive).
-    start must occur before end
-    start and end can be a tag, or hash
-    """
-    if start is not None:
-        for idx, c in enumerate(commits):
-            if start in c['tags'] or c['hash'].startswith(start):
-                commits = commits[:idx]
-                break
-
-    if end is not None:
-        for idx, c in enumerate(commits):
-            if end in c['tags'] or c['hash'].startswith(end):
-                commits = commits[idx:]
-                break
-
-    return commits
-
-
 def compile_log(commits):
     """
     """
@@ -122,7 +101,7 @@ def compile_log(commits):
     return versions
 
 
-def format_log(versions):
+def format_log(versions, emoji=False):
     output = "# Changelog"
 
     headings = {
@@ -141,6 +120,9 @@ def format_log(versions):
             sorted(version.commits, key=lambda x: x.type), lambda x: x.type
         ):
             if key in headings:
+                if emoji:
+                    raise NotImplementedError
+
                 output += f"\n### {headings[key]}\n\n"
 
                 for commit in sorted(group, key=lambda x: f"{x.scope} {x.description}"):

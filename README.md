@@ -27,6 +27,29 @@ To generate a changelog, run:
 
 Make sure to activate any virtual envrionment that you might be using first.
 
+Some options are available:
+
+    $ whathappened --help
+    Usage: whathappened [OPTIONS] [GIT_LOG_ARGS]...
+
+      Handle command line arguments. Extra arguments are passed to 'git log'.
+
+    Options:
+      -o, --output PATH  The changelog destination [default: stdout]
+      -e, --emoji        Include emoji in headings if present
+      --version          Show the version and exit.
+      --help             Show this message and exit.
+
+To limit the range of commits, add a [`revision range`](https://git-scm.com/docs/git-log#Documentation/git-log.txt-ltrevisionrangegt) argument.
+
+To create a changelog of commits that are yet to be pushed:
+
+    $ whathappened origin..HEAD
+
+To create a changelog of commits between (branch: main) and (tag: v1.0.0) and write the output to file:
+
+    $ whathappened -o CHANGELOG.md main..v1.0.0
+
 ## Package Changelog
 
 Created by Whathappened itself - very meta.

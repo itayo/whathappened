@@ -6,9 +6,11 @@ import re
 leading_4_spaces = re.compile('^    ')
 
 
-def get_commits():
+def get_commits(git_log_args=()):
     lines = (
-        subprocess.check_output(['git', 'log', '--decorate'], stderr=subprocess.STDOUT)
+        subprocess.check_output(
+            ['git', 'log', '--decorate'] + list(git_log_args), stderr=subprocess.STDOUT
+        )
         .decode("utf-8")
         .split('\n')
     )
