@@ -1,6 +1,25 @@
-import setuptools
+import subprocess
 
+import setuptools
 import versioneer
+
+# check that all tests pass
+make_process = subprocess.run(["make", "check"], stderr=subprocess.STDOUT)
+if make_process.returncode != 0:
+
+    class TestsException(Exception):
+        pass
+
+    raise TestsException("please pass all tests before releasing")
+
+# check that linting passes
+make_process = subprocess.run(["make", "lint"], stderr=subprocess.STDOUT)
+if make_process.returncode != 0:
+
+    class LintException(Exception):
+        pass
+
+    raise LintException("please complete code linting before releasing")
 
 # check to prevent dirty uploads to PyPI
 if versioneer.get_versions()["dirty"]:
