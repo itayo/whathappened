@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.3.0 (2020-10-19)
+
+### Docs
+
+* Changelog - update to v0.3.0
+
+### Features
+
+* Add basic command line options [BREAKING]
+
+### Fixes
+
+* Gracefully handle commits like 'filename.py: message'
+* Increase robustness of scope by allowing spaces, dots, etc.
+
+
 ## v0.2.0 (2020-10-18)
 
 ### Docs
