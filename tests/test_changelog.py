@@ -3,6 +3,25 @@ import pytest
 from whathappened import changelog as cl
 
 
+def dummy_version(ref, date, breaking, feature, fix, num_commits):
+    version = cl.Version(ref, date)
+    version.breaking = breaking
+    version.feature = feature
+    version.fix = fix
+    version.commits = [None for each in range(num_commits)]
+
+    return version
+
+
+def assert_version(version_a, version_b):
+    assert version_a.ref == version_b.ref
+    assert version_a.date == version_b.date
+    assert version_a.breaking == version_b.breaking
+    assert version_a.feature == version_b.feature
+    assert version_a.fix == version_b.fix
+    assert len(version_a.commits) == len(version_b.commits)
+
+
 @pytest.mark.parametrize(
     "test_input, expected",
     [
@@ -117,6 +136,109 @@ def test_commit_title_parsing(test_input, expected):
     print(commit_attr)
 
     assert commit_attr == expected
+
+
+@pytest.mark.parametrize(
+    "test_input, expected",
+    [
+        (
+            [
+                {
+                    'hash': 'e324c324df48a76113ad9b3c0887f161324046e4',
+                    'tags': ['v0.1.1'],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 17:30:25 2020 +0200',
+                    'message': '',
+                    'title': 'breaking feat(readme): specify expected message format',
+                },
+                {
+                    'hash': '7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9',
+                    'tags': [],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 15:00:48 2020 +0200',
+                    'message': '',
+                    'title': 'breaking fix (code): repair things',
+                },
+                {
+                    'hash': '7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9',
+                    'tags': [],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 15:00:48 2020 +0200',
+                    'message': '',
+                    'title': 'breaking fix: repair things',
+                },
+                {
+                    'hash': '7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9',
+                    'tags': [],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 15:00:48 2020 +0200',
+                    'message': '',
+                    'title': 'fix: add inspiration',
+                },
+                {
+                    'hash': 'f60445bba0ac48e12ce6be5526644037234ae500',
+                    'tags': ['v0.0.1'],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 15:00:31 2020 +0200',
+                    'message': '',
+                    'title': 'docs (readme): add badges',
+                },
+                {
+                    'hash': '9e57ba91f54244af913931c017480a39605c15f9',
+                    'tags': [],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 13:55:04 2020 +0200',
+                    'message': (
+                        'Setup Python 3.6 on ubuntu-latest\n'
+                        'Install pipenv and dependencies\n'
+                        'Test'
+                    ),
+                    'title': 'build(actions): create python-app.yml for github actions',
+                },
+                {
+                    'hash': '4094d22846daea951c4fe0d74abb2a798e9a3404',
+                    'tags': ['v0.0.0'],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 13:19:28 2020 +0200',
+                    'message': '',
+                    'title': 'Initial commit',
+                },
+            ],
+            [
+                dummy_version(
+                    'v0.1.1',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=3,
+                    feature=1,
+                    fix=3,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    'v0.0.1',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+                dummy_version(
+                    'v0.0.0',
+                    'Sat Oct 17 13:19:28 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=1,
+                ),
+            ],
+        )
+    ],
+)
+def test_compile_log_versions(test_input, expected):
+    commits = test_input
+    versions = cl.compile_log(commits)
+
+    for version, expectation in zip(versions, expected):
+        assert_version(version, expectation)
 
 
 @pytest.mark.parametrize(

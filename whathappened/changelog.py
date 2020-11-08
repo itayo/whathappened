@@ -13,11 +13,20 @@ class Version:
             else date
         )  # str input format Wed Apr 22 18:58:54 2020 +0200
 
+        self.breaking = 0
+        self.feature = 0
+        self.fix = 0
+
         self.commits = []
 
     def __repr__(self):
         return (
-            f"Version({self.ref}," f" {self.date}," f" num_commits={len(self.commits)})"
+            f"Version('{self.ref}',"
+            f" {self.date},"
+            f" breaking={self.breaking},"
+            f" feature={self.feature},"
+            f" fix={self.fix},"
+            f" num_commits={len(self.commits)})"
         )
 
 
@@ -94,6 +103,16 @@ def compile_log(commits):
 
         # append to current version
         versions[-1].commits.append(this_commit)
+
+        # check if commit is breaking, feature, or fix
+        if this_commit.is_breaking:
+            versions[-1].breaking += 1
+
+        if this_commit.is_feature:
+            versions[-1].feature += 1
+
+        if this_commit.is_fix:
+            versions[-1].fix += 1
 
     # for version in versions:
     #     print(version)
