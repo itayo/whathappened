@@ -242,6 +242,507 @@ def test_compile_log_versions(test_input, expected):
 
 
 @pytest.mark.parametrize(
+    "versions, expected",
+    [
+        (
+            [
+                dummy_version(
+                    'HEAD',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=3,
+                    feature=1,
+                    fix=3,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    '0.1.1',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+                dummy_version(
+                    '0.0.0',
+                    'Sat Oct 17 13:19:28 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=1,
+                ),
+            ],
+            "0.2.0",
+        ),
+        (
+            [
+                dummy_version(
+                    'HEAD',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=0,
+                    feature=1,
+                    fix=3,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    '0.1.1',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+            ],
+            "0.1.2",
+        ),
+        (
+            [
+                dummy_version(
+                    'HEAD',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=3,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    '0.1.1',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+            ],
+            "0.1.2",
+        ),
+        (
+            [
+                dummy_version(
+                    'HEAD',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    '0.1.1',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+            ],
+            "0.1.1",
+        ),
+        (
+            [
+                dummy_version(
+                    'HEAD',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=1,
+                    feature=1,
+                    fix=1,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    '1.0.0',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+            ],
+            "2.0.0",
+        ),
+        (
+            [
+                dummy_version(
+                    'HEAD',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=0,
+                    feature=1,
+                    fix=1,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    '1.0.0',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+            ],
+            "1.1.0",
+        ),
+        (
+            [
+                dummy_version(
+                    'HEAD',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=1,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    '1.0.0',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+            ],
+            "1.0.1",
+        ),
+        (
+            [
+                dummy_version(
+                    'HEAD',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    '1.0.0',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+            ],
+            "1.0.0",
+        ),
+        (
+            [
+                dummy_version(
+                    'HEAD',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=1,
+                    feature=1,
+                    fix=1,
+                    num_commits=4,
+                ),
+            ],
+            "0.1.0",
+        ),
+    ],
+)
+def test_calculate_next(versions, expected):
+    next_version = cl.calculate_next(versions)
+
+    assert next_version == expected
+
+
+@pytest.mark.parametrize(
+    "versions, prefix, expected",
+    [
+        (
+            [
+                dummy_version(
+                    'HEAD',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=1,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    '1.0.0',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+            ],
+            "",
+            "1.0.1",
+        ),
+        (
+            [
+                dummy_version(
+                    'HEAD',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=1,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    'version1.0.0',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+            ],
+            "version",
+            "version1.0.1",
+        ),
+        (
+            [
+                dummy_version(
+                    'HEAD',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=1,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    'v1.0.0',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+            ],
+            "v",
+            "v1.0.1",
+        ),
+    ],
+)
+def test_calculate_next_prefixes_success(versions, prefix, expected):
+    next_version = cl.calculate_next(versions, prefix=prefix)
+
+    assert next_version == expected
+
+
+@pytest.mark.parametrize(
+    "versions, prefix",
+    [
+        (
+            [
+                dummy_version(
+                    'HEAD',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=1,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    '1.0.0',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+            ],
+            "v",
+        ),
+        (
+            [
+                dummy_version(
+                    'HEAD',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=1,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    'version1.0.0',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+            ],
+            "version_",
+        ),
+        (
+            [
+                dummy_version(
+                    'HEAD',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=1,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    'v1.0.0',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+            ],
+            "version",
+        ),
+    ],
+)
+def test_calculate_next_prefixes_failure(versions, prefix):
+    with pytest.raises(cl.VersionFormatException):
+        cl.calculate_next(versions, prefix=prefix)
+
+
+@pytest.mark.parametrize(
+    "versions",
+    [
+        [
+            dummy_version(
+                'HEAD',
+                'Sat Oct 17 17:30:25 2020 +0200',
+                breaking=0,
+                feature=0,
+                fix=1,
+                num_commits=4,
+            ),
+            dummy_version(
+                '01.0.0',
+                'Sat Oct 17 15:00:31 2020 +0200',
+                breaking=0,
+                feature=0,
+                fix=0,
+                num_commits=2,
+            ),
+        ],
+        [
+            dummy_version(
+                'HEAD',
+                'Sat Oct 17 17:30:25 2020 +0200',
+                breaking=0,
+                feature=0,
+                fix=1,
+                num_commits=4,
+            ),
+            dummy_version(
+                '1.0.',
+                'Sat Oct 17 15:00:31 2020 +0200',
+                breaking=0,
+                feature=0,
+                fix=0,
+                num_commits=2,
+            ),
+        ],
+        [
+            dummy_version(
+                'HEAD',
+                'Sat Oct 17 17:30:25 2020 +0200',
+                breaking=0,
+                feature=0,
+                fix=1,
+                num_commits=4,
+            ),
+            dummy_version(
+                '1.0',
+                'Sat Oct 17 15:00:31 2020 +0200',
+                breaking=0,
+                feature=0,
+                fix=0,
+                num_commits=2,
+            ),
+        ],
+        [
+            dummy_version(
+                'HEAD',
+                'Sat Oct 17 17:30:25 2020 +0200',
+                breaking=0,
+                feature=0,
+                fix=1,
+                num_commits=4,
+            ),
+            dummy_version(
+                '1',
+                'Sat Oct 17 15:00:31 2020 +0200',
+                breaking=0,
+                feature=0,
+                fix=0,
+                num_commits=2,
+            ),
+        ],
+    ],
+)
+def test_calculate_next_version_string_failure(versions):
+    with pytest.raises(cl.VersionFormatException):
+        result = cl.calculate_next(versions)
+
+        print(result)
+
+
+@pytest.mark.parametrize(
+    "versions, prefix, expected",
+    [
+        (
+            [
+                dummy_version(
+                    'HEAD',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=3,
+                    feature=1,
+                    fix=3,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    'v0.1.1',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+                dummy_version(
+                    'v0.0.0',
+                    'Sat Oct 17 13:19:28 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=1,
+                ),
+            ],
+            "v",
+            [
+                dummy_version(
+                    'v0.2.0',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=3,
+                    feature=1,
+                    fix=3,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    'v0.1.1',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+                dummy_version(
+                    'v0.0.0',
+                    'Sat Oct 17 13:19:28 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=1,
+                ),
+            ],
+        )
+    ],
+)
+def test_update_latest_version(versions, prefix, expected):
+    versions = cl.update_latest_version(versions, prefix=prefix)
+
+    for version, expectation in zip(versions, expected):
+        assert_version(version, expectation)
+
+
+@pytest.mark.parametrize(
     "test_input, expected",
     [
         (

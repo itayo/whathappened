@@ -14,6 +14,7 @@ except ImportError:  # for development use
 def main(output="CHANGELOG.md", emoji=False, git_log_args=[]):
     commits = get_commits(git_log_args=git_log_args)
     versions = changelog.compile_log(commits)
+    versions = changelog.update_latest_version(versions)
     log = changelog.format_log(versions, emoji=emoji)
 
     if output is not None:

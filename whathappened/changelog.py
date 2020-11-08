@@ -3,6 +3,20 @@ import re
 from datetime import datetime
 from itertools import groupby
 
+# https://semver.org/spec/v2.0.0.html
+semver_regex = re.compile(
+    r"^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)"
+    r"(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)"
+    r"(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?"
+    r"(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
+)
+
+
+class VersionFormatException(Exception):
+    '''Raise when a version string can not be correctly parsed'''
+
+    pass
+
 
 class Version:
     def __init__(self, ref, date):
@@ -84,6 +98,57 @@ def sentence(string):
         return string
 
 
+def calculate_next(versions, prefix=""):
+    global semver_regex
+
+    try:
+        previous = versions[1]
+    except IndexError:
+        # if no previous version has been found
+        return f"{prefix}0.1.0"
+
+    previous_version = previous.ref[len(prefix) :]
+    result = semver_regex.match(previous_version)
+
+    # extract version numbers if possible:
+    try:
+        major, minor, patch = (
+            int(result.group('major')),
+            int(result.group('minor')),
+            int(result.group('patch')),
+        )
+    except AttributeError:
+        raise VersionFormatException(
+            f"The version number of '{previous_version}' with prefix='{prefix}' cannot"
+            f" be parsed. Please enter the appropriate prefix or use a version string"
+            f" like 'X.Y.Z'. See https://semver.org/spec/v2.0.0.html for more details."
+        )
+
+    latest_version = versions[0]
+
+    if major == 0:
+        # this is a development release and only receives minor and patch increments
+        if latest_version.breaking > 0:
+            return f"{prefix}{major}.{minor+1}.0"
+        elif latest_version.feature > 0 or latest_version.fix > 0:
+            return f"{prefix}{major}.{minor}.{patch+1}"
+        else:
+            # no api changes
+            return f"{prefix}{major}.{minor}.{patch}"
+
+    else:
+        # this is production release and receives major, minor, and patch increments
+        if latest_version.breaking > 0:
+            return f"{prefix}{major+1}.0.0"
+        elif latest_version.feature > 0:
+            return f"{prefix}{major}.{minor+1}.0"
+        elif latest_version.fix > 0:
+            return f"{prefix}{major}.{minor}.{patch+1}"
+        else:
+            # no api changes
+            return f"{prefix}{major}.{minor}.{patch}"
+
+
 def compile_log(commits):
     """
     """
@@ -116,6 +181,14 @@ def compile_log(commits):
 
     # for version in versions:
     #     print(version)
+
+    return versions
+
+
+def update_latest_version(versions, prefix=""):
+    '''update the HEAD reference to show the next semver version'''
+    latest_version = versions[0]
+    latest_version.ref = calculate_next(versions, prefix=prefix)
 
     return versions
 
