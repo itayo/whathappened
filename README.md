@@ -37,6 +37,7 @@ Some options are available:
     Options:
       -o, --output PATH  The changelog destination [default: stdout]
       -e, --emoji        Include emoji in headings if present
+      -p, --prefix TEXT  Version prefix, often 'version' or 'v' [default: '']
       --version          Show the version and exit.
       --help             Show this message and exit.
 
