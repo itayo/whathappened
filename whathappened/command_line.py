@@ -2,17 +2,14 @@ import click
 
 try:
     from whathappened import __version__, changelog
-    from whathappened.git_commits import get_commits
 except ImportError:  # for development use
     import changelog
-
-    from git_commits import get_commits
 
     __version__ = 'major.minor.patch'
 
 
 def main(output="CHANGELOG.md", emoji=False, git_log_args=[]):
-    commits = get_commits(git_log_args=git_log_args)
+    commits = changelog.get_commits(git_log_args=git_log_args)
     versions = changelog.compile_log(commits)
     versions = changelog.update_latest_version(versions)
     log = changelog.format_log(versions, emoji=emoji)

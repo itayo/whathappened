@@ -3,6 +3,12 @@ import re
 from datetime import datetime
 from itertools import groupby
 
+# imported to make this module the base module for all external calls to functions
+try:
+    from whathappened.git_commits import get_commits  # noqa
+except ImportError:  # for development use
+    from git_commits import get_commits  # noqa
+
 # https://semver.org/spec/v2.0.0.html
 semver_regex = re.compile(
     r"^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)"
