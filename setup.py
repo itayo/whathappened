@@ -38,7 +38,6 @@ test_requirements = ['pytest', 'pytest-cov', 'pytest-watch', 'pytest-reportlog']
 
 setuptools.setup(
     author="Rollcloud",
-    author_email="roullcloud@gmail.com",
     classifiers=[
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Operating System :: OS Independent',
