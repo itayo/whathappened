@@ -47,7 +47,7 @@ class Version:
             f" feature={self.feature},"
             f" fix={self.fix},"
             f" num_commits={len(self.commits)})"
-        )
+        )  # pragma: no cover
 
 
 class Commit:
@@ -93,7 +93,12 @@ class Commit:
                 raise AttributeError(f"Attribute '{name}' not found in class Commit")
 
     def __repr__(self):
-        return f"Commit({{'hash': '{self.hash[:6]}', 'title': '{self.title}')}}"
+        return (
+            f"Commit({{"
+            f"'hash': '{self.hash[:6]}', "
+            f"'title': '{self.title}', "
+            f"}})"
+        )  # pragma: no cover
 
 
 def sentence(string):
