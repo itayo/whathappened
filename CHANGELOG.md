@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.3.2 (2020-11-08)
+
+### Docs
+
+* Changelog - updated to v0.3.2
+
+### Features
+
+* Changelog - count breaking, feature, & fix commits in each version
+* Changelog - replace "HEAD" with the predicted Semver version
+* Command-line - allow a version prefix to be specified
+
+### Refactorings
+
+* Make get_commits() accessible from changelog module
+
+
 ## v0.3.1 (2020-10-19)
 
 ### Docs
