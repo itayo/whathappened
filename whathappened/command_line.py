@@ -8,10 +8,10 @@ except ImportError:  # for development use
     __version__ = 'major.minor.patch'
 
 
-def main(output="CHANGELOG.md", emoji=False, git_log_args=[]):
+def main(output="CHANGELOG.md", emoji=False, prefix="", git_log_args=[]):
     commits = changelog.get_commits(git_log_args=git_log_args)
     versions = changelog.compile_log(commits)
-    versions = changelog.update_latest_version(versions)
+    versions = changelog.update_latest_version(versions, prefix=prefix)
     log = changelog.format_log(versions, emoji=emoji)
 
     if output is not None:
@@ -35,13 +35,19 @@ def main(output="CHANGELOG.md", emoji=False, git_log_args=[]):
     default=False,
     help="Include emoji in headings if present",
 )
+@click.option(
+    '--prefix',
+    '-p',
+    default="",
+    help="Version prefix, often 'version' or 'v' [default: '']",
+)
 @click.argument('git_log_args', nargs=-1, type=click.UNPROCESSED)
 @click.version_option(version=__version__)
-def cli(output, emoji, git_log_args):
+def cli(output, emoji, prefix, git_log_args):
     """
     Handle command line arguments. Extra arguments are passed to 'git log'.
     """
-    main(output=output, emoji=emoji, git_log_args=git_log_args)
+    main(output=output, emoji=emoji, prefix=prefix, git_log_args=git_log_args)
 
 
 if __name__ == '__main__':
