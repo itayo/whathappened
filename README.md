@@ -77,6 +77,8 @@ Whathappened expects git commit messages in the format outlined below:
     perf
     test
 
+Variations on these types like `feat, feature, features`, or `doc, docs` are seamlessly grouped together.
+
 `<scope>` is recommended to be a module, file, or folder name as appropiate.
 
 For a nice summary of `type`s and what they mean, please see [Understanding Semantic Commit Messages Using Git and Angular](https://nitayneeman.com/posts/understanding-semantic-commit-messages-using-git-and-angular/).

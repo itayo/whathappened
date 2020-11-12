@@ -26,6 +26,39 @@ def assert_version(version_a, version_b):
     "test_input, expected",
     [
         (
+            "performance: make it faster",
+            {
+                'description': 'make it faster',
+                'type': 'perf',
+                'scope': None,
+                'is_breaking': False,
+                'is_feature': False,
+                'is_fix': False,
+            },
+        ),
+        (
+            "feature(read me): specify expected message format",
+            {
+                'description': 'specify expected message format',
+                'type': 'feat',
+                'scope': 'read me',
+                'is_breaking': False,
+                'is_feature': True,
+                'is_fix': False,
+            },
+        ),
+        (
+            "features(more): all the new features",
+            {
+                'description': 'all the new features',
+                'type': 'feat',
+                'scope': 'more',
+                'is_breaking': False,
+                'is_feature': True,
+                'is_fix': False,
+            },
+        ),
+        (
             "Break feat(read me): specify expected message format",
             {
                 'description': 'specify expected message format',
@@ -33,6 +66,17 @@ def assert_version(version_a, version_b):
                 'scope': 'read me',
                 'is_breaking': True,
                 'is_feature': True,
+                'is_fix': False,
+            },
+        ),
+        (
+            "doc(README.md): specify expected message format",
+            {
+                'description': 'specify expected message format',
+                'type': 'docs',
+                'scope': 'README.md',
+                'is_breaking': False,
+                'is_feature': False,
                 'is_fix': False,
             },
         ),
@@ -81,11 +125,33 @@ def assert_version(version_a, version_b):
             },
         ),
         (
+            "fixes: add inspiration",
+            {
+                'description': 'add inspiration',
+                'type': 'fix',
+                'scope': None,
+                'is_breaking': False,
+                'is_feature': False,
+                'is_fix': True,
+            },
+        ),
+        (
             "docs (readme): add badges",
             {
                 'description': 'add badges',
                 'type': 'docs',
                 'scope': 'readme',
+                'is_breaking': False,
+                'is_feature': False,
+                'is_fix': False,
+            },
+        ),
+        (
+            "refac: add things",
+            {
+                'description': 'add things',
+                'type': 'refactor',
+                'scope': None,
                 'is_breaking': False,
                 'is_feature': False,
                 'is_fix': False,

@@ -82,7 +82,24 @@ class Commit:
             elif name == 'is_breaking':
                 return breaking is not None
             elif name == 'type':
-                return commit_type if commit_type is not None else 'other'
+                # group equivalent commit types
+                types = {
+                    'doc': 'docs',
+                    'docs': 'docs',
+                    'feat': 'feat',
+                    'feature': 'feat',
+                    'features': 'feat',
+                    'fix': 'fix',
+                    'fixes': 'fix',
+                    'perf': 'perf',
+                    'performance': 'perf',
+                    'refac': 'refactor',
+                    'refactor': 'refactor',
+                }
+                try:
+                    return types[commit_type]
+                except KeyError:
+                    return commit_type if commit_type is not None else 'other'
             elif name == 'scope':
                 return scope
             elif name == 'is_feature':
@@ -220,7 +237,7 @@ def format_log(versions, emoji=False):
         output += f"\n\n## {version.ref} ({version.date.isoformat()[:10]})\n"
 
         for key, group in groupby(
-            sorted(version.commits, key=lambda x: x.type), lambda x: x.type
+            sorted(version.commits, key=lambda x: x.type[:4]), lambda x: x.type
         ):
             if key in headings:
                 if emoji:
