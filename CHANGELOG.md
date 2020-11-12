@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.3.3 (2020-11-12)
+
+### Docs
+
+* Changelog - updated to v0.3.3
+* Readme - add command-line version prefix specifier
+
+### Fixes
+
+* Changelog - improve robustness of category grouping
+
+
 ## v0.3.2 (2020-11-08)
 
 ### Docs
