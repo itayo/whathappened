@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.3.4 (2020-11-28)
+
+### Docs
+
+* Changelog - updated to v0.3.4
+
+### Features
+
+* Changelog - implement emoji headings
+
+### Fixes
+
+* Changelog - do not display Other if it is the only version heading
+* Changelog - escape underscores for correct Markdown rendering
+
+### Refactorings
+
+* Changelog - rename internal function sentence() -> \_sentence()
+
+
 ## v0.3.3 (2020-11-12)
 
 ### Docs
@@ -26,7 +46,7 @@
 
 ### Refactorings
 
-* Make get_commits() accessible from changelog module
+* Make get\_commits() accessible from changelog module
 
 
 ## v0.3.1 (2020-10-19)
@@ -103,7 +123,7 @@
 ### Features
 
 * Add changelog generation script
-* Add git_commits.py from existing Gist
+* Add git\_commits.py from existing Gist
 * Create example.py
 
 ### Other
