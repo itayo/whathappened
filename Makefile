@@ -64,7 +64,7 @@ lint:
 .PHONY: install
 install:
 	mkdir -p .venv
-	pipenv sync
+	pipenv sync --dev
 
 .PHONY: uninstall
 uninstall: ## remove virtual environment
