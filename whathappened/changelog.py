@@ -248,14 +248,28 @@ def format_log(versions, emoji=False):
     for version in versions:
         output += f"\n\n## {version.ref} ({version.date.isoformat()[:10]})\n"
 
-        for key, group in groupby(
-            sorted(version.commits, key=lambda x: x.type[:4]), lambda x: x.type
-        ):
+        # store groupby results as lists
+        groups = []
+        uniquekeys = []
+        data = sorted(version.commits, key=lambda x: x.type[:4])
+        for k, g in groupby(data, lambda x: x.type):
+            groups.append(list(g))  # Store group iterator as a list
+            uniquekeys.append(k)
+
+        headings_in_this_version = [k for k in uniquekeys if k in headings]
+
+        for key, group in zip(uniquekeys, groups):
             if key in headings:
                 if emoji:
                     raise NotImplementedError
 
-                output += f"\n### {headings[key]}\n\n"
+                # check if Other is the only heading in this version
+                if key == 'other' and len(headings_in_this_version) == 1:
+                    # if it is, it is redundent and should not be displayed
+                    output += "\n"
+                else:
+                    # else display the heading as usual
+                    output += f"\n### {headings[key]}\n\n"
 
                 for commit in sorted(group, key=lambda x: f"{x.scope} {x.description}"):
                     scope = f"{commit.scope} - " if commit.scope else ''

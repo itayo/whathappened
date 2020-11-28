@@ -815,6 +815,14 @@ def test_update_latest_version(versions, prefix, expected):
             [
                 {
                     'hash': 'e324c324df48a76113ad9b3c0887f161324046e4',
+                    'tags': ['v0.1.2'],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sun Oct 18 17:31:25 2020 +0200',
+                    'message': '',
+                    'title': 'test if "other" is the only heading, if so, remove it',
+                },
+                {
+                    'hash': 'e324c324df48a76113ad9b3c0887f161324046e4',
                     'tags': ['v0.1.1'],
                     'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
                     'date': 'Sat Oct 17 17:30:25 2020 +0200',
@@ -876,6 +884,11 @@ def test_update_latest_version(versions, prefix, expected):
             ],
             """# Changelog
 
+## v0.1.2 (2020-10-18)
+
+* Test if "other" is the only heading, if so, remove it
+
+
 ## v0.1.1 (2020-10-17)
 
 ### Features
@@ -897,8 +910,6 @@ def test_update_latest_version(versions, prefix, expected):
 
 
 ## v0.0.0 (2020-10-17)
-
-### Other
 
 * Initial commit
 """,
