@@ -1,3 +1,5 @@
+import pytest
+
 from whathappened.git_commits import get_commits
 
 
@@ -78,5 +80,40 @@ def test_get_commits(monkeypatch):
             'title': 'Initial commit',
         },
     ]
+
+    assert commits == expected
+
+
+@pytest.mark.parametrize(
+    "test_input, expected",
+    [
+        (
+            (
+                'commit 7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9\n'
+                'Author: Rollcloud <Rollcloud@users.noreply.github.com>\n'
+                'Date:   Sat Oct 17 15:00:48 2020 +0200\n'
+                '\n'
+                '    fix: check _underscore_ symbol\n'
+            ),
+            [
+                {
+                    'hash': '7b4e7e657f9e3f2f4033cc5f47bcc637f5799fe9',
+                    'tags': [],
+                    'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
+                    'date': 'Sat Oct 17 15:00:48 2020 +0200',
+                    'message': '',
+                    'title': 'fix: check _underscore_ symbol',
+                }
+            ],
+        )
+    ],
+)
+def test_get_commits_symbols(test_input, expected, monkeypatch):
+    monkeypatch.setattr(
+        'subprocess.check_output', lambda *args, **kwargs: test_input.encode("utf-8")
+    )
+
+    commits = get_commits()
+    print(commits)
 
     assert commits == expected

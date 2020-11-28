@@ -278,7 +278,7 @@ def format_log(versions, emoji=False):
 
                 for commit in sorted(group, key=lambda x: f"{x.scope} {x.description}"):
                     scope = f"{commit.scope} - " if commit.scope else ''
-                    desc = commit.description
+                    desc = commit.description.replace('_', '\\_')  # escape underscore
                     desc = _sentence(desc) if len(scope) == 0 else desc
                     breaking = " [BREAKING]" if commit.is_breaking else ''
                     output += f"* {_sentence(scope)}{desc}{breaking}\n"

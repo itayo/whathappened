@@ -851,7 +851,7 @@ def test_update_latest_version(versions, prefix, expected):
                     'author': 'Rollcloud <Rollcloud@users.noreply.github.com>',
                     'date': 'Sat Oct 17 15:00:48 2020 +0200',
                     'message': '',
-                    'title': 'fix: add inspiration',
+                    'title': 'fix: check _underscores_',
                 },
                 {
                     'hash': 'f60445bba0ac48e12ce6be5526644037234ae500',
@@ -897,7 +897,7 @@ def test_update_latest_version(versions, prefix, expected):
 
 ### Fixes
 
-* Add inspiration
+* Check \\_underscores\\_
 * Repair things [BREAKING]
 * Code - repair things [BREAKING]
 
