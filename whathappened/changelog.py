@@ -237,13 +237,20 @@ def format_log(versions, emoji=False):
     output = "# Changelog"
 
     headings = {
-        'docs': "Docs",
-        'feat': "Features",
-        'fix': "Fixes",
-        'perf': "Performance",
-        'refactor': "Refactorings",
-        'other': "Other",
+        'docs': "Docs 📝",
+        'feat': "Features ✨",
+        'fix': "Fixes 🐛",
+        'perf': "Performance ⚡️",
+        'refactor': "Refactorings ♻️",
+        'other': "Other 🃏",
     }
+
+    if not emoji:
+        # remove emoji (first two characters) from headings, and strip space character
+        headings = {key: heading[:-2].strip() for key, heading in headings.items()}
+    else:
+        # leave emoji in headings
+        pass
 
     for version in versions:
         output += f"\n\n## {version.ref} ({version.date.isoformat()[:10]})\n"
@@ -260,8 +267,6 @@ def format_log(versions, emoji=False):
 
         for key, group in zip(uniquekeys, groups):
             if key in headings:
-                if emoji:
-                    raise NotImplementedError
 
                 # check if Other is the only heading in this version
                 if key == 'other' and len(headings_in_this_version) == 1:

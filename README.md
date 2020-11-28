@@ -83,6 +83,17 @@ Variations on these types like `feat, feature, features`, or `doc, docs` are sea
 
 For a nice summary of `type`s and what they mean, please see [Understanding Semantic Commit Messages Using Git and Angular](https://nitayneeman.com/posts/understanding-semantic-commit-messages-using-git-and-angular/).
 
+## Emoji
+
+Adding the --emoji flag will add emoji after each heading in the changelog. Below is the list of emoji that are used:
+
+* Docs 📝
+* Features ✨
+* Fixes 🐛
+* Performance ⚡️
+* Refactorings ♻️
+* Other 🃏 
+
 ### Examples
 
 All of the examples below are acceptable commit message formats:

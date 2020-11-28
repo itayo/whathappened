@@ -924,3 +924,80 @@ def test_changelog(test_input, expected):
     print(log)
 
     assert log == expected
+
+
+@pytest.mark.parametrize(
+    "test_input, expected",
+    [
+        (
+            [
+                {
+                    'tags': ['v1.2.3'],
+                    'date': 'Sat Nov 28 20:11:28 2020 +0200',
+                    'title': 'docs (changelog): updated to v1.2.3',
+                },
+                {
+                    'tags': [],
+                    'date': 'Sat Nov 28 20:10:28 2020 +0200',
+                    'title': 'feat: added a thing',
+                },
+                {
+                    'tags': [],
+                    'date': 'Sat Nov 28 20:09:28 2020 +0200',
+                    'title': 'fix: captured a bug',
+                },
+                {
+                    'tags': [],
+                    'date': 'Sat Nov 28 20:08:28 2020 +0200',
+                    'title': 'perf: made it faster',
+                },
+                {
+                    'tags': [],
+                    'date': 'Sat Nov 28 20:07:28 2020 +0200',
+                    'title': 'refac: made it better',
+                },
+                {
+                    'tags': [],
+                    'date': 'Sat Nov 28 20:06:28 2020 +0200',
+                    'title': 'Made it different',
+                },
+            ],
+            """# Changelog
+
+## v1.2.3 (2020-11-28)
+
+### Docs 📝
+
+* Changelog - updated to v1.2.3
+
+### Features ✨
+
+* Added a thing
+
+### Fixes 🐛
+
+* Captured a bug
+
+### Other 🃏
+
+* Made it different
+
+### Performance ⚡️
+
+* Made it faster
+
+### Refactorings ♻️
+
+* Made it better
+""",
+        )
+    ],
+)
+def test_changelog_emoji(test_input, expected):
+    commits = test_input
+    versions = cl.compile_log(commits)
+    log = cl.format_log(versions, emoji=True)
+
+    print(log)
+
+    assert log == expected
