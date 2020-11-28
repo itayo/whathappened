@@ -19,12 +19,18 @@ semver_regex = re.compile(
 
 
 class VersionFormatException(Exception):
-    '''Raise when a version string can not be correctly parsed'''
+    """Raise when a version string cannot be correctly parsed."""
 
     pass
 
 
 class Version:
+    """
+    All the changes committed prior to a new version being released.
+
+    Also includes their attributes, such as breaking, feature, or fix.
+    """
+
     def __init__(self, ref, date):
         self.ref = ref
         self.date = (
@@ -51,6 +57,7 @@ class Version:
 
 
 class Commit:
+    """The content and attributes of a single Git commit."""
 
     commit_regex = re.compile(
         r"(?:(?P<breaking>break(?:ing)?)? ?(?P<type>\w+){1}"
@@ -119,6 +126,7 @@ class Commit:
 
 
 def sentence(string):
+    """Format a given string in sentence case."""
     try:
         return string[0].upper() + string[1:]
     except IndexError:
@@ -127,6 +135,11 @@ def sentence(string):
 
 
 def calculate_next(versions, prefix=""):
+    """
+    Calculate the next version number to be released.
+
+    Based on changes made since the previous version.
+    """
     global semver_regex
 
     try:
@@ -178,9 +191,7 @@ def calculate_next(versions, prefix=""):
 
 
 def compile_log(commits):
-    """
-    """
-
+    """Iterate though a list of Commits, compiling a list of Versions based on tags."""
     versions = []
 
     # iterate through commits from latest to earliest
@@ -190,7 +201,7 @@ def compile_log(commits):
         # make a new version if required
         if len(commit['tags']) > 0 or len(versions) == 0:
             tag = commit['tags'][0] if len(commit['tags']) > 0 else 'HEAD'
-            versions.append(Version(ref=tag, date=commit['date'],))
+            versions.append(Version(ref=tag, date=commit['date']))
 
         this_commit = Commit(commit)
 
@@ -214,7 +225,7 @@ def compile_log(commits):
 
 
 def update_latest_version(versions, prefix=""):
-    '''update the HEAD reference to show the next semver version'''
+    """Update the HEAD reference to show the next semver version."""
     latest_version = versions[0]
     latest_version.ref = calculate_next(versions, prefix=prefix)
 
@@ -222,6 +233,7 @@ def update_latest_version(versions, prefix=""):
 
 
 def format_log(versions, emoji=False):
+    """Produce a nicely formatted changelog - with emoji too if required."""
     output = "# Changelog"
 
     headings = {
