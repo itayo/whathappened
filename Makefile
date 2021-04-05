@@ -7,7 +7,7 @@
 # make watch-check
 
 
-VENV = pipenv run
+VENV = poetry run
 
 PYTEST = $(VENV) python -m pytest --tb=short tests/ --report-log=.pytest_cache/pytest.json
 
@@ -63,12 +63,15 @@ lint:
 
 .PHONY: install
 install:
-	mkdir -p .venv
-	pipenv sync --dev
+	poetry install
+
+.PHONY: install-production
+install-production:
+	poetry install --no-dev
 
 .PHONY: uninstall
 uninstall: ## remove virtual environment
-	pipenv --rm
+	rm -rf .venv/
 
 test-release: dist ## package and upload a release to the test PyPI
 	python3 -m twine upload -r pypitest dist/*
