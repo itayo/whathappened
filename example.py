@@ -1,3 +1,4 @@
+#! .venv/bin/python3
 from whathappened import changelog as cl
 
 
