@@ -54,6 +54,10 @@ watch-check:
 		--onfail "python3 tests/misc/pytest-summary.py .pytest_cache/pytest.json \
 		| xargs -r -i notify-send -i error Pytest \"{}\""
 
+.PHONY: black
+black:
+	$(VENV) black -S *.py tests/*.py whathappened/*.py
+
 .PHONY: lint
 lint:
 	## stop the build if there are Python syntax errors or undefined names
