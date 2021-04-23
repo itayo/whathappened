@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.0.0 (2021-04-23)
+
+### Docs
+
+* Changelog - update to v1.0.0
+* Readme - correct minor spelling errors
+* Readme - update examples to point to Commit-It-Simple website
+
+### Features
+
+* Changelog - allow the latest version number to be overridden
+
+### Fixes
+
+* Example - add Python3 shebang
+
+
 ## v0.3.4 (2020-11-28)
 
 ### Docs
