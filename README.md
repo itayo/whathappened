@@ -61,6 +61,8 @@ For the complete changelog, please see [CHANGELOG.md](CHANGELOG.md).
 
 ## Whathappened Commit Message Format
 
+For a full description of the message format, see [Commit-It-Simple](https://commit-it-simple.github.io/).
+
 Whathappened expects git commit messages in the format outlined below:
 
     [optional breaking ]<type>[ optional (<scope>)]: <description>
@@ -81,13 +83,15 @@ Whathappened expects git commit messages in the format outlined below:
 
 Variations on these types like `feat, feature, features`, or `doc, docs` are seamlessly grouped together.
 
-`<scope>` is recommended to be a module, file, or folder name as appropriate.
+The `<scope>` is recommended to be a module, file, or folder name as appropriate.
+
+More examples can be viewed on whathappened's own [commits](https://github.com/Rollcloud/whathappened/commits/).
 
 For a nice summary of `type`s and what they mean, please see [Understanding Semantic Commit Messages Using Git and Angular](https://nitayneeman.com/posts/understanding-semantic-commit-messages-using-git-and-angular/).
 
 ## Emoji
 
-Adding the --emoji flag will add emoji after each heading in the changelog. Below is the list of emoji that are used:
+Adding the `--emoji` flag will add emoji after each heading in the changelog. Below is the list of emoji that are used:
 
 * Docs 📝
 * Features ✨
@@ -95,34 +99,3 @@ Adding the --emoji flag will add emoji after each heading in the changelog. Belo
 * Performance ⚡️
 * Refactorings ♻️
 * Other 🃏 
-
-### Examples
-
-All of the examples below are acceptable commit message formats:
-
-The simplest message:
-
-    style: isn't it neat
-
-Defining scope:
-
-    docs(gadgets): remember the gizmos
-
-Signaling a breaking change
-
-    breaking feat: add the whozits
-
-Defining scope, including a space:
-
-    fix (whatsits): repair the thingamabobs
-
-Multiple lines:
-
-    test: How many have I got?
-
-    I've got twenty
-    But who cares?
-
-    I want more
-
-For more examples, please see whathappened's own [commits](https://github.com/Rollcloud/whathappened/commits/).
