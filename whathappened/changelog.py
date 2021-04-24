@@ -232,6 +232,14 @@ def update_latest_version(versions, prefix=""):
     return versions
 
 
+def override_latest_version(versions, overriding, prefix=""):
+    """Update the HEAD reference to show the overriding version."""
+    latest_version = versions[0]
+    latest_version.ref = f"{prefix}{overriding}"
+
+    return versions
+
+
 def format_log(versions, emoji=False):
     """Produce a nicely formatted changelog - with emoji too if required."""
     output = "# Changelog"

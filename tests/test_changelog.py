@@ -809,6 +809,74 @@ def test_update_latest_version(versions, prefix, expected):
 
 
 @pytest.mark.parametrize(
+    "versions, desired, prefix, expected",
+    [
+        (
+            [
+                dummy_version(
+                    'HEAD',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=3,
+                    feature=1,
+                    fix=3,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    'v0.1.1',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+                dummy_version(
+                    'v0.0.0',
+                    'Sat Oct 17 13:19:28 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=1,
+                ),
+            ],
+            "1.0.0",
+            "v",
+            [
+                dummy_version(
+                    'v1.0.0',
+                    'Sat Oct 17 17:30:25 2020 +0200',
+                    breaking=3,
+                    feature=1,
+                    fix=3,
+                    num_commits=4,
+                ),
+                dummy_version(
+                    'v0.1.1',
+                    'Sat Oct 17 15:00:31 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=2,
+                ),
+                dummy_version(
+                    'v0.0.0',
+                    'Sat Oct 17 13:19:28 2020 +0200',
+                    breaking=0,
+                    feature=0,
+                    fix=0,
+                    num_commits=1,
+                ),
+            ],
+        )
+    ],
+)
+def test_override_latest_version(versions, desired, prefix, expected):
+    versions = cl.override_latest_version(versions, desired, prefix=prefix)
+
+    for version, expectation in zip(versions, expected):
+        assert_version(version, expectation)
+
+
+@pytest.mark.parametrize(
     "test_input, expected",
     [
         (

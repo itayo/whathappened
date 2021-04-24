@@ -35,9 +35,11 @@ Some options are available:
       Handle command line arguments. Extra arguments are passed to 'git log'.
 
     Options:
+      --overriding-version TEXT  Specify a version number to use [format: x.y.z]
       -o, --output PATH  The changelog destination [default: stdout]
       -e, --emoji        Include emoji in headings if present
       -p, --prefix TEXT  Version prefix, often 'version' or 'v' [default: '']
+      
       --version          Show the version and exit.
       --help             Show this message and exit.
 
