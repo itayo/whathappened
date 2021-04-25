@@ -102,6 +102,10 @@ class Commit:
                     'performance': 'perf',
                     'refac': 'refactor',
                     'refactor': 'refactor',
+                    'test': 'test',
+                    'revert' : 'revert',
+                    'ci': 'ci',
+                    'chore': 'other',
                 }
                 try:
                     return types[commit_type]
@@ -250,7 +254,11 @@ def format_log(versions, emoji=False):
         'fix': "Fixes 🐛",
         'perf': "Performance ⚡️",
         'refactor': "Refactorings ♻️",
+        'revert': "Reverted ☠️",
+        'test' : "Testing 🧪",
+        'ci'   : "Continous Integration 🤖",
         'other': "Other 🃏",
+
     }
 
     if not emoji:
